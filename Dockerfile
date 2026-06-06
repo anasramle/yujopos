@@ -19,6 +19,10 @@ WORKDIR /var/www/html
 
 COPY . .
 
+# FIX: Point Apache to Laravel's public directory
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf
+
 RUN composer install --no-dev
 
 RUN npm install && npm run build
