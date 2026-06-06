@@ -49,6 +49,9 @@ class ReceiptController extends Controller
     {
         $email = $request->email;
         $saleId = $request->saleId;
+
+        \Log::info('Receipt requested - Email: ' . $email . ', Sale ID: ' . $saleId);
+
         $sale = DB::table('sales')
             ->join('branches', 'branches.id', '=', 'sales.branch_id')
             ->where('sales.id', $saleId)
@@ -80,6 +83,9 @@ class ReceiptController extends Controller
         ], function ($message) use ($email) {
             $message->to($email)->subject('Your Receipt');
         });
+
+         \Log::info('Receipt email sent successfully to: ' . $email);
+
         return response()->json(['status' => 'sent']);
     }
 }
