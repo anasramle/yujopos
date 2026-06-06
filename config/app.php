@@ -52,7 +52,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    // 'url' => env('APP_URL', 'http://localhost'),  change on 6/6/2026
+    'url' => env('APP_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +66,9 @@ return [
     |
     */
 
-    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    // 'timezone' => env('APP_TIMEZONE', 'UTC'),
+     'timezone' => 'Asia/Kuala_Lumpur',
+
 
     /*
     |--------------------------------------------------------------------------
