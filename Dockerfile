@@ -22,11 +22,6 @@ COPY . .
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN php artisan config:clear
-RUN php artisan cache:clear
-RUN php artisan view:clear
-RUN php artisan route:clear
-
 RUN chmod -R 777 storage bootstrap/cache
 
 COPY nginx.conf /etc/nginx/sites-available/default
