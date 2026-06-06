@@ -1078,7 +1078,9 @@
             formData.append('total', form.querySelector("input[name='total']").value);
             formData.append('cash', cashValue);
 
-            fetch("{{ route('payment.process') }}", {
+            // fetch("{{ route('payment.process') }}", {
+                // fetch("/payment/process", {
+                fetch("{{ url('/payment/process') }}", {
                     method: "POST",
                     headers: {
                         "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
