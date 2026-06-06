@@ -23,17 +23,20 @@ WORKDIR /var/www/html
 # Copy existing application directory contents
 COPY . /var/www/html
 
-# RUN COMPOSER INSTALL - MOST IMPORTANT STEP
+# Install composer dependencies
 RUN composer install --no-interaction --optimize-autoloader --no-dev --ignore-platform-req=ext-zip
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Disable conflicting MPM modules and enable the one we need (prefork)
+RUN a2dismod mpm_event && a2dismod mpm_worker && a2enmod mpm_prefork
+
 # Enable Apache rewrite module
 RUN a2enmod rewrite
 
-# Set document root to public
+# Set document root to Laravel's public folder
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
