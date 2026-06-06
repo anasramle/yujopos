@@ -74,7 +74,9 @@ class PaymentController extends Controller
                     'inventory_id' => $item['id'],
                     'price' => $item['price'],
                     'qty' => $item['qty'],
-                    'created_at' => now()
+                    'created_at' => now(),
+                    'company_id' => Auth::user()->company_id,
+                    'branch_id' => $branchId
                 ]);
 
                 // GET INVENTORY DATA
